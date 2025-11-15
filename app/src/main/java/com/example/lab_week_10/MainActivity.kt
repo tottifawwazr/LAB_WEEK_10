@@ -9,7 +9,6 @@ import com.example.lab_week_10.viewmodels.TotalViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    // Ambil ViewModel
     private val viewModel: TotalViewModel by lazy {
         ViewModelProvider(this)[TotalViewModel::class.java]
     }
@@ -27,12 +26,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun prepareViewModel() {
-        // Observe LiveData -> setiap total berubah, UI di-update
-        viewModel.total.observe(this) { totalValue ->
-            updateText(totalValue)
+        // Observe LiveData
+        viewModel.total.observe(this) {
+            // setiap total berubah, UI Activity di-update
+            updateText(it)
         }
 
-        // Klik button memanggil fungsi di ViewModel
+        // Klik tombol -> minta ViewModel increment
         findViewById<Button>(R.id.button_increment).setOnClickListener {
             viewModel.incrementTotal()
         }
