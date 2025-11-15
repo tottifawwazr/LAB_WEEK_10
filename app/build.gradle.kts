@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    // Tambahkan plugin kapt untuk Room
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -35,10 +37,22 @@ android {
     }
 }
 
+// Versi Room yang dipakai
+val roomVersion = "2.6.0"
+
 dependencies {
 
+    // ViewModel & LiveData
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+
+    // ======== ROOM ========
+    implementation("androidx.room:room-runtime:$roomVersion")
+    // Compiler Room (pakai annotationProcessor + kapt sesuai modul)
+    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    // ======================
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
